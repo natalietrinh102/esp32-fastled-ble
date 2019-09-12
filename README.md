@@ -3,6 +3,8 @@
 
 This fork aims to document and improve functionality of the esp-fastled-ble project. 
 
+Note: All my coding is self taught. Things might get funky here.
+
 ## Features
 ### Currently Working:
 * [x] DemoReel100 patterns
@@ -25,7 +27,7 @@ This fork aims to document and improve functionality of the esp-fastled-ble proj
    * [ ] fire cooling/sparking
 
 ### Currently working on:
-* The current code will take BLE commands, but processes all writes the same regardless of the characteristic it's assigned to. Therefore, we must add logic that takes the current uuid variable value, and push/map it to an existing variable in the code. There is already an existing map as evidenced by field.getValue - we just need to "reverse" this.
+* The current code will take BLE commands, but processes all writes the same regardless of the characteristic it's assigned to. Therefore, we must add logic that takes the current uuid variable value, and push/map it to an existing variable in the code. There is already an existing map in fields.h.
 
 ## Requirements
 
