@@ -1,7 +1,7 @@
 # ESP32 FastLED BLE (Bluetooth Low Energy)
 **Work in progress BLE port of https://github.com/jasoncoon/esp32-fastled-webserver**
 
-Control addressable LEDs with an ESP32 via a web browser over BLE.
+This fork aims to document and improve functionality of the esp-fastled-ble project. 
 
 ## Features
 ### Currently Working:
@@ -24,6 +24,8 @@ Control addressable LEDs with an ESP32 via a web browser over BLE.
    * [ ] twinkle speed/density
    * [ ] fire cooling/sparking
 
+### Currently working on:
+* The current code will take BLE commands, but processes all writes the same regardless of the characteristic it's assigned to. Therefore, we must add logic that takes the current uuid variable value, and push/map it to an existing variable in the code. There is already an existing map as evidenced by field.getValue - we just need to "reverse" this.
 
 ## Requirements
 
@@ -31,23 +33,13 @@ Control addressable LEDs with an ESP32 via a web browser over BLE.
 
 #### ESP32 Development Board
 
-[![Adafruit HUZZAH32 – ESP32 Feather Board](https://cdn-learn.adafruit.com/assets/assets/000/041/619/thumb100/feather_3405_iso_ORIG.jpg?1494445509)](https://www.adafruit.com/product/3405)
-
-[Adafruit HUZZAH32 – ESP32 Feather Board](https://www.adafruit.com/product/3405)
-
-**or**
-
-[WEMOS LOLIN D32](https://wiki.wemos.cc/products:d32:d32)
-
-**or**
-
 [An ESP32 development board of your choice](https://www.google.com/search?q=esp32+development+board)
+
+The code here is debugged on an ESP32-PICO kit.
 
 #### Addressable LED strip
 
-[![Adafruit NeoPixel Ring](https://www.adafruit.com/images/145x109/1586-00.jpg)](https://www.adafruit.com/product/1586)
-
-[Adafruit NeoPixel Ring](https://www.adafruit.com/product/1586)
+The code may be easily modified to run any configuration supported by FastLED; however, it will be debugged on a single WS2812B strip.
 
 #### Other hardware:
 
