@@ -26,8 +26,16 @@ Note: All my coding is self taught. Things might get funky here.
    * [ ] twinkle speed/density
    * [ ] fire cooling/sparking
 
+### Notable Changes so far:
+* Bluetooth characteristics are now used to determine which function will run.
+
 ### Currently working on:
-* The current code will take BLE commands, but processes all writes the same regardless of the characteristic it's assigned to. Therefore, we must add logic that takes the current uuid variable value, and push/map it to an existing variable in the code. There is already an existing map in fields.h.
+* Figuring out how "FieldSetter" works so that we may pass the BLE RX value the setter functions
+
+### Future work:
+* On-the-fly programming
+  * Set up code to recieve large (>512 bytes) of information to store into EEPROM in order to send an array of colors.
+  * Make a looping "pattern" that decodes the complete bitmap into fastLED.
 
 ## Requirements
 
