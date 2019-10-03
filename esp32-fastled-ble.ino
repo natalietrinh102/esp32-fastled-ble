@@ -29,9 +29,11 @@
 #warning "Requires FastLED 3.1.8 or later; check github for latest code."
 #endif
 
+
 const int led = 5;
 
-uint8_t autoplay = 0;
+// Autoplay is the "demo mode"
+uint8_t autoplay = 0; // Set to 0 to disable
 uint8_t autoplayDuration = 10;
 unsigned long autoPlayTimeout = 0;
 
@@ -63,26 +65,29 @@ unsigned long paletteTimeout = 0;
 
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
-#define DATA_PIN    12 // pins tested so far on the Feather ESP32: 13, 12, 27, 33, 15, 32, 14, SCL
-//#define CLK_PIN   4
+#define DATA_PIN    4 // Useful variable, however, not really used in the addLED code below to allow for parallel strips
+//#define CLK_PIN   5 // Used only on SPI based strips (APA102 and clones)
 #define LED_TYPE    WS2812B
 #define COLOR_ORDER RGB
-#define NUM_STRIPS 8
-#define NUM_LEDS_PER_STRIP 100
+#define NUM_STRIPS 1
+#define NUM_LEDS_PER_STRIP 12
 #define NUM_LEDS NUM_LEDS_PER_STRIP * NUM_STRIPS
 CRGB leds[NUM_LEDS];
 
-#define MILLI_AMPS         4000 // IMPORTANT: set the max milli-Amps of your power supply (4A = 4000mA)
+#define MILLI_AMPS         1000 // IMPORTANT: set the max milli-Amps of your power supply (4A = 4000mA)
 #define FRAMES_PER_SECOND  120
 
 // -- The core to run FastLED.show()
 #define FASTLED_SHOW_CORE 0
 
+// Includes some of the FastLED demos
 #include "patterns.h"
 
+// Storage for EEPROM
 #include "field.h"
 #include "fields.h"
 
+// Bluetooth code
 #include "ble.h"
 
 // -- Task handles for use in the notifications
@@ -121,6 +126,7 @@ void FastLEDshowTask(void *pvParameters)
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
 
     // -- Do the show (synchronously)
+    // Not sure why FastLEDshowESP32() isn't used, but there must be a reason...
     FastLED.show();
 
     // -- Notify the calling task
@@ -145,15 +151,10 @@ void setup() {
   // four-wire LEDs (APA102, DotStar)
   //FastLED.addLeds<LED_TYPE,DATA_PIN,CLK_PIN,COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
 
-  // Parallel output: 13, 12, 27, 33, 15, 32, 14, SCL
-  FastLED.addLeds<LED_TYPE, 13, COLOR_ORDER>(leds, 0, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<LED_TYPE, 12, COLOR_ORDER>(leds, NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<LED_TYPE, 27, COLOR_ORDER>(leds, 2 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<LED_TYPE, 33, COLOR_ORDER>(leds, 3 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<LED_TYPE, 15, COLOR_ORDER>(leds, 4 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<LED_TYPE, 32, COLOR_ORDER>(leds, 5 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<LED_TYPE, 14, COLOR_ORDER>(leds, 6 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
-  FastLED.addLeds<LED_TYPE, SCL, COLOR_ORDER>(leds, 7 * NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
+  // Parallel output is possible but disabled here
+  FastLED.addLeds<LED_TYPE, 4, COLOR_ORDER>(leds, 0, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
+  // FastLED.addLeds<LED_TYPE, 12, COLOR_ORDER>(leds, NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP).setCorrection(TypicalLEDStrip);
+
 
   FastLED.setMaxPowerInVoltsAndMilliamps(5, MILLI_AMPS);
 
@@ -186,6 +187,7 @@ void loop()
       gHue++;  // slowly cycle the "base color" through the rainbow
     }
 
+// Autoplay "demo" mode. Not important.
     if (autoplay == 1 && (millis() > autoPlayTimeout)) {
       nextPattern();
       autoPlayTimeout = millis() + (autoplayDuration * 1000);

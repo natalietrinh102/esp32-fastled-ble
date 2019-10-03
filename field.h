@@ -56,6 +56,27 @@ Field getField(String name, FieldList fields, uint8_t count) {
   return Field();
 }
 
+/// EXPERIMENETAL CODE AHEAD
+/*Field uuidgetField(String uuid, FieldList fields, uint8_t count) {
+  for (uint8_t i = 0; i < count; i++) {
+    Field field = fields[i];
+    if (field.uuid == uuid) {
+      return field;
+    }
+  }
+  return Field();
+}
+
+String uuidgetFieldValue(String uuid, FieldList fields, uint8_t count) {
+  Field field = uuidgetField(uuid, fields, count);
+  if (field.getValue) {
+    return field.getValue();
+  }
+  return String();
+}
+*/
+/// END EXPERIMENTAL CODE
+
 String getFieldValue(String name, FieldList fields, uint8_t count) {
   Field field = getField(name, fields, count);
   if (field.getValue) {
@@ -208,3 +229,7 @@ String getFieldsJson(FieldList fields, uint8_t count) {
 
   return json;
 }
+
+// possible layout for new method?
+//fields action =  getfields("power", fields, 14);
+//action.setvalue("1");
