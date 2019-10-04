@@ -1,5 +1,5 @@
 # ESP32 FastLED BLE (Bluetooth Low Energy)
-**Function BLE fork of https://github.com/jasoncoon/esp32-fastled-ble**
+**Functional BLE fork of https://github.com/jasoncoon/esp32-fastled-ble**
 
 Note: All my coding is self taught. Things might get funky here.
 
@@ -26,6 +26,7 @@ Note: All my coding is self taught. Things might get funky here.
 * [ ] On-the-fly programming
    * [ ] Set up code to recieve large (>512 bytes) of information to store into EEPROM in order to send an array of colors.
    * [ ] Make a looping "pattern" that decodes the complete bitmap into fastLED.
+* [ ] Adjustable Strobe mode
 
 ## Requirements
 
