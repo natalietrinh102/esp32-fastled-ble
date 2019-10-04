@@ -1,7 +1,5 @@
 # ESP32 FastLED BLE (Bluetooth Low Energy)
-**Work in progress BLE port of https://github.com/jasoncoon/esp32-fastled-webserver**
-
-This fork aims to document and improve functionality of the esp-fastled-ble project. 
+**Function BLE fork of https://github.com/jasoncoon/esp32-fastled-ble**
 
 Note: All my coding is self taught. Things might get funky here.
 
@@ -10,32 +8,24 @@ Note: All my coding is self taught. Things might get funky here.
 * [x] DemoReel100 patterns
 * [x] [Sam's multi-core support](https://github.com/samguyer/FastLED/blob/master/examples/DemoReelESP32/DemoReelESP32.ino)
 * [x] Setting storage in EEPROM
-
-### Currently Lacking:
 * [x] Ability to adjust these settings via BLE:
-   * [ ] power on/off
-   * [ ] brightness
-   * [ ] pattern
+   * [x] power on/off
+   * [x] brightness
+   * [x] pattern
    * [ ] autoplay on/off
    * [ ] autoplay duration
-   * [ ] speed
-   * [ ] palette
+   * [x] speed
+   * [x] palette
    * [ ] auto palette cycling
-   * [ ] palette duration
-   * [ ] solid color
-   * [ ] twinkle speed/density
-   * [ ] fire cooling/sparking
+   * [x] palette duration
+   * [x] solid color
+   * [x] twinkle speed/density
+   * [x] fire cooling/sparking
 
-### Notable Changes so far:
-* Bluetooth characteristics are now used to determine which function will run.
-
-### Currently working on:
-* Figuring out how "FieldSetter" works so that we may pass the BLE RX value the setter functions
-
-### Future work:
-* On-the-fly programming
-  * Set up code to recieve large (>512 bytes) of information to store into EEPROM in order to send an array of colors.
-  * Make a looping "pattern" that decodes the complete bitmap into fastLED.
+### To-do:
+* [ ] On-the-fly programming
+   * [ ] Set up code to recieve large (>512 bytes) of information to store into EEPROM in order to send an array of colors.
+   * [ ] Make a looping "pattern" that decodes the complete bitmap into fastLED.
 
 ## Requirements
 
