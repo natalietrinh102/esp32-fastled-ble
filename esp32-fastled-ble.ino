@@ -1,4 +1,8 @@
 /*
+  ESP32 FastLED BLE - BLE functionality completed at this fork: https://github.com/natalietrinh102/esp32-fastled-ble
+  Copyright (C) 2019 Natalie Trinh
+
+  Orginal work at: 
    ESP32 FastLED BLE: https://github.com/jasoncoon/esp32-fastled-ble
    Copyright (C) 2018 Jason Coon
 

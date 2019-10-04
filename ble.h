@@ -1,4 +1,7 @@
 /*
+  ESP32 FastLED BLE - BLE functionality completed at this fork: https://github.com/natalietrinh102/esp32-fastled-ble
+  Copyright (C) 2019 Natalie Trinh
+
    ESP32 FastLED BLE: https://github.com/jasoncoon/esp32-fastled-ble
    Copyright (C) 2018 Jason Coon
 
@@ -36,12 +39,9 @@ class FieldCallbacks: public BLECharacteristicCallbacks {
       if (rxValue.length() > 0) {
         std::string uuid = pCharacteristic->getUUID().toString();
 
-        // Convert the std string to a char for comparsion later
-        // ref: https://en.cppreference.com/w/cpp/string/basic_string/copy
-        char targetUUID[uuid.length()+1];  
-        uuid.copy(targetUUID, sizeof targetUUID+1);
-        targetUUID[36]='\0';
-
+        //Convert all the C++11 strings to C-strings for simplicity 
+        String targetUUID = uuid.c_str();
+        String targetValue = rxValue.c_str();
         
         Serial.println("*********");
         // This line of code can be removed to just use targetUUID later, but it'll stay here for now for reference
@@ -50,16 +50,12 @@ class FieldCallbacks: public BLECharacteristicCallbacks {
           Serial.print(uuid[i]);
         }
         Serial.println();
-        Serial.print("Value: ");
+        Serial.print("Recieved Value: ");
 
         for (int i = 0; i < rxValue.length(); i++) {
           Serial.print(rxValue[i]);
         }
 
-        Serial.println();
-
-        Serial.print("Finding set function linked with uuid: ");
-        Serial.print(targetUUID);
         Serial.println();
 
         // interate fields[i].uuid until we find a matching i for uuid
@@ -69,36 +65,18 @@ class FieldCallbacks: public BLECharacteristicCallbacks {
         // !! note, loop should use the fields length, but hard coded for now !!
         for (int i = 0; i < 14; i++) {
           if (fields[i].uuid ==targetUUID) {
-                Serial.print("Comparing ");
-                Serial.print(fields[i].uuid);
-                Serial.print(" with ");
-                Serial.print(targetUUID);
-                Serial.println(); 
-            targetIndex = i;
-                Serial.print("Index found at: "); 
-                Serial.print(targetIndex);
-                Serial.println();  
+            targetIndex = i; 
           }
         }
-
-        // !! Trying to figure out how to send values through the "FieldSetter". Maybe see the web server for reference?
-        fields[targetIndex].setValue(rxValue); // This doesn't work!
-              Serial.print("Sending ");  
-              Serial.print(RxValue);
-              Serial.print(" to :");  
-              Serial.print(fields[targetIndex].name)
-        /*
-        if (rxValue.find("1") != -1) {
-          Serial.println("Turning ON!");
-          power = 1;
-        }
-        else if (rxValue.find("0") != -1) {
-          Serial.println("Turning OFF!");
-          power = 0;
-        }
-        */
-
         
+        String name = fields[targetIndex].name;
+        
+// Send the recieved values to matching setter function
+        setFieldValue(name, targetValue, fields, fieldCount);
+              Serial.print("Setting ");  
+              Serial.print(name);
+              Serial.print(" to: ");
+              Serial.print(targetValue);
         Serial.println();
         Serial.println("*********");
       }
