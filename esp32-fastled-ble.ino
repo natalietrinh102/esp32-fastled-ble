@@ -102,6 +102,7 @@ static TaskHandle_t userTaskHandle = 0;
     Call this function instead of FastLED.show(). It signals core 0 to issue a show,
     then waits for a notification that it is done.
 */
+
 void FastLEDshowESP32()
 {
   if (userTaskHandle == 0) {
@@ -122,6 +123,7 @@ void FastLEDshowESP32()
 /** show Task
     This function runs on core 0 and just waits for requests to call FastLED.show()
 */
+
 void FastLEDshowTask(void *pvParameters)
 {
   // -- Run forever...

@@ -39,28 +39,19 @@ class FieldCallbacks: public BLECharacteristicCallbacks {
       if (rxValue.length() > 0) {
         std::string uuid = pCharacteristic->getUUID().toString();
 
-        //Convert all the C++11 strings to C-strings for simplicity 
+        //Convert the C++11 strings to C-strings
         String targetUUID = uuid.c_str();
         String targetValue = rxValue.c_str();
         
-        Serial.println("*********");
         // This line of code can be removed to just use targetUUID later, but it'll stay here for now for reference
         Serial.print("Received write for characteristic UUID: ");
         for (int i = 0; i < uuid.length(); i++) {
           Serial.print(uuid[i]);
         }
-        Serial.println();
-        Serial.print("Recieved Value: ");
-
-        for (int i = 0; i < rxValue.length(); i++) {
-          Serial.print(rxValue[i]);
-        }
 
         Serial.println();
-
-        // interate fields[i].uuid until we find a matching i for uuid
-        //Serial.print(fields[0].uuid);
         
+        // interate fields[i].uuid until we find a matching i for uuid
         int targetIndex;
         // !! note, loop should use the fields length, but hard coded for now !!
         for (int i = 0; i < 14; i++) {
@@ -76,9 +67,7 @@ class FieldCallbacks: public BLECharacteristicCallbacks {
               Serial.print("Setting ");  
               Serial.print(name);
               Serial.print(" to: ");
-              Serial.print(targetValue);
-        Serial.println();
-        Serial.println("*********");
+              Serial.println(targetValue);
       }
     }
 };
@@ -124,5 +113,5 @@ void setupBLE() {
   pService->start();
   BLEAdvertising *pAdvertising = pServer->getAdvertising();
   pAdvertising->start();
-  Serial.println("Characteristic defined! Now you can read it in your phone!");
+  Serial.println("Characteristics defined!");
 }
