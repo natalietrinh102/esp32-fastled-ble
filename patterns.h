@@ -24,6 +24,7 @@
 
 #include "palettes.h";
 #include "twinkleFOX.h"
+#include "DiscoStrobe.h"
 
 void rainbow()
 {
@@ -280,6 +281,9 @@ PatternAndNameList patterns = {
   { bpm, "bpm" },
 
   { showSolidColor,         "Solid Color" },
+
+  // DiscoStrobe Patterns
+  { discostrobe, "DiscoStrobe" },
 };
 
 const uint8_t patternCount = ARRAY_SIZE(patterns);

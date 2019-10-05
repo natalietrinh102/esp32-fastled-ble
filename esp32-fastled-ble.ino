@@ -192,7 +192,7 @@ void loop()
       nblendPaletteTowardPalette(currentPalette, targetPalette, 8);
       gHue++;  // slowly cycle the "base color" through the rainbow
     }
-
+    
 // Autoplay "demo" mode. Not important.
     if (autoplay == 1 && (millis() > autoPlayTimeout)) {
       nextPattern();

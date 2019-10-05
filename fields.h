@@ -236,6 +236,8 @@ FieldList fields = {
 //  { "79583572-8406-426f-9efe-d34837976320", "twinklesSection", "Twinkles", SectionFieldType },
   { "f1923e5f-a78f-4418-95ce-ee3f4058069b", "twinkleSpeed", "Twinkle Speed", NumberFieldType, 0, 8, getTwinkleSpeed, NULL, setTwinkleSpeed },
   { "018abf88-a753-4d57-b920-24c39042149d", "twinkleDensity", "Twinkle Density", NumberFieldType, 0, 8, getTwinkleDensity, NULL, setTwinkleDensity },
+
+//  { "28d3656b-10c6-494a-a11e-2f7edd79b864", "strobeSpeed", "Strobe Speed", NumberFieldType, 0, 8, getStrobeSpeed, NULL, setStrobeSpeed },  
 };
 
 uint8_t fieldCount = ARRAY_SIZE(fields);
